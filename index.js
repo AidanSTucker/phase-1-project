@@ -1,54 +1,13 @@
-//const API_URL = 
-
-// Fetch data from the API
-//async function fetchData() {
- // try {
-   // const response = await fetch(API_URL);
-    //const data = await response.json();
-    //return data;
-  //} catch (error) {
-   // console.error('Error fetching data:', error);
-  //}
-//}
-
-// Display the data on the page
-function displayData(data) {
-  const container = document.getElementById('data-container');
-
-  data.forEach(item => {
-    const card = document.createElement('div');
-    card.className = 'card';
-
-    const image = document.createElement('img');
-    image.src = item.image;
-    card.appendChild(image);
-
-    const name = document.createElement('h3');
-    name.textContent = item.name;
-    card.appendChild(name);
-
-    const likes = document.createElement('p');
-    likes.textContent = `Likes: ${item.likes}`;
-    card.appendChild(likes);
-
-    container.appendChild(card);
-  });
-}
-
-// Event listener for data loading
-//window.addEventListener('DOMContentLoaded', async () => {
-  //const data = await fetchData();
-  //if (data) {
-    //displayData(data);
- // }
-//});
+// DOM Content Loaded
+document.addEventListener('DOMContentLoaded', () => {
+  console.log("Welcome!")
+})
 
 
 // DOM elements
 const searchInput = document.getElementById('search-input');
 const searchBtn = document.getElementById('search-btn');
 const playerStats = document.getElementById('player-stats');
-const userInfo = document.getElementById('user-info');
 
 // Event listeners
 searchBtn.addEventListener('click', searchPlayer);
@@ -56,12 +15,44 @@ searchBtn.addEventListener('click', searchPlayer);
 // Function to search for NBA player stats
 function searchPlayer() {
   const playerName = searchInput.value.trim();
-  
+
   // Call the API with playerName and process the response
-  // Example: Use fetch or XMLHttpRequest to send a request to the NBA API and retrieve player stats
-  
-  // Display player stats on the page
-  playerStats.innerHTML = `<h3>Player: ${playerName}</h3>`;
-  // Example: Update playerStats.innerHTML with the retrieved player stats
+  fetchPlayerStats(playerName);
 }
 
+// Function to fetch player stats from the API
+async function fetchPlayerStats(playerName) {
+  const url = `https://api-nba-v1.p.rapidapi.com/players?search=${playerName}&per_page=1`;
+  const options = {
+    method: 'GET',
+    headers: {
+      'X-RapidAPI-Key': '4948651216msh7c93eb95da5ba5fp10b6b3jsn2cffd22451d6',
+      'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com'
+    }
+  };
+
+  try {
+    const response = await fetch(url, options);
+    const data = await response.json();
+
+    if (data.data && data.data.length > 0) {
+      const player = data.data[0];
+      displayPlayerStats(player);
+    } else {
+      playerStats.innerHTML = '<p>No player found.</p>';
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Function to display player stats on the page
+function displayPlayerStats(player) {
+  playerStats.innerHTML = `
+    <h3>Player: ${player.first_name} ${player.last_name}</h3>
+    <p>Team: ${player.team.full_name}</p>
+    <p>Position: ${player.position}</p>
+    <p>Height: ${player.height_feet}'${player.height_inches}</p>
+    <p>Weight: ${player.weight_pounds} lbs</p>
+  `;
+}
