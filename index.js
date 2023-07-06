@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (response.ok) {
         const result = await response.json();
         console.log(result);
+        teamStats.textContent = result;
         displayTeamStats(result);
       } else {
         console.log("Error with format");
@@ -47,33 +48,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function displayTeamStats(stats) {
+  function displayTeamStats(result) {
+    const teamStats = document.getElementById('team-stats');
+    
     teamStats.innerHTML = '';
   
-    if (stats.errors) {
+    if (result.errors) {
       teamStats.textContent = 'Error retrieving team statistics.';
       return;
     }
   
-    const teamName = stats.response.team.name;
-    const games = stats.response.games;
-    const points = stats.response.points;
+    const teamName = result.response.team.name;
+    const games = result.response.games;
+    const points = result.response.points;
   
-    const list = document.createElement('ul');
+    // Create new content
+    const content = `
+      <ul>
+        <li>Team: ${teamName}</li>
+        <li>Games: ${games}</li>
+        <li>Points: ${points}</li>
+      </ul>
+    `;
   
-    const teamNameItem = document.createElement('li');
-    teamNameItem.textContent = `Team: ${teamName}`;
-  
-    const gamesItem = document.createElement('li');
-    gamesItem.textContent = `Games: ${games}`;
-  
-    const pointsItem = document.createElement('li');
-    pointsItem.textContent = `Points: ${points}`;
-  
-    list.appendChild(teamNameItem);
-    list.appendChild(gamesItem);
-    list.appendChild(pointsItem);
-  
-    teamStats.appendChild(list);
+    teamStats.innerHTML = content;
   }
 })
