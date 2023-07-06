@@ -1,4 +1,4 @@
-/* Add your custom styles here */
+
 body {
   font-family: Arial, sans-serif;
 }
@@ -40,8 +40,8 @@ button {
 #team-stats {
   border: 1px solid #333;
   padding: 20px;
-  background-color: green; /* Change background color to white */
-  color: #333; /* Change text color to black */
+  background-color: green; 
+  color: #333; 
 }
 
 .card {

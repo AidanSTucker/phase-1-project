@@ -3,13 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchButton = document.getElementById('search-btn');
   const teamStats = document.getElementById('team-stats');
 
-  // Event Listener 1: Button click
   searchButton.addEventListener('click', () => {
     const teamName = searchInput.value;
     searchTeamStats(teamName);
   });
 
-  // Event Listener 2: Enter key press
   searchInput.addEventListener('keyup', (event) => {
     if (event.key === 'Enter') {
       const teamName = searchInput.value;
@@ -17,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Event Listener 3: Mouseover
   teamStats.addEventListener('mouseover', () => {
     teamStats.style.backgroundColor = 'white';
   });
@@ -50,10 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function displayTeamStats(stats) {
-    // Clear previous team statistics
     teamStats.innerHTML = '';
   
-    // Check if the API response contains any errors
     if (stats.errors) {
       teamStats.textContent = 'Error retrieving team statistics.';
       return;
@@ -63,10 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const games = stats.response.games;
     const points = stats.response.points;
   
-    // Create an unordered list element
     const list = document.createElement('ul');
   
-    // Create list items for each statistic
     const teamNameItem = document.createElement('li');
     teamNameItem.textContent = `Team: ${teamName}`;
   
@@ -76,12 +69,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const pointsItem = document.createElement('li');
     pointsItem.textContent = `Points: ${points}`;
   
-    // Append list items to the unordered list
     list.appendChild(teamNameItem);
     list.appendChild(gamesItem);
     list.appendChild(pointsItem);
   
-    // Append the list to the teamStats div
     teamStats.appendChild(list);
   }
 })
