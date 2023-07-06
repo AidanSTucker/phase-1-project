@@ -1,63 +1,87 @@
-// DOM Content Loaded
 document.addEventListener('DOMContentLoaded', () => {
-  console.log("Welcome!")
-})
+  const searchInput = document.getElementById('search-input');
+  const searchButton = document.getElementById('search-btn');
+  const teamStats = document.getElementById('team-stats');
 
+  // Event Listener 1: Button click
+  searchButton.addEventListener('click', () => {
+    const teamName = searchInput.value;
+    searchTeamStats(teamName);
+  });
 
-// DOM elements
-const searchInput = document.getElementById('search-input');
-const searchBtn = document.getElementById('search-btn');
-const playerStats = document.getElementById('player-stats');
-
-// Event listeners
-searchBtn.addEventListener('click', searchPlayer); 
-//mkae a submit
-
-// Function to search for NBA player stats
-function searchPlayer() {
-  const playerName = searchInput.value.trim();
-  console.log(playerName);
-
-  // Call the API with playerName and process the response
-  fetchPlayerStats(playerName);
-}
-
-// Function to fetch player stats from the API
-async function fetchPlayerStats(playerName) {
-  const url = `https://api-nba-v1.p.rapidapi.com/players?name=${playerName}`;
-  const options = {
-    method: 'GET',
-    headers: {
-      "Content-Type": "application/json",
-      'X-RapidAPI-Key': '4948651216msh7c93eb95da5ba5fp10b6b3jsn2cffd22451d6',
-      'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com'
+  // Event Listener 2: Enter key press
+  searchInput.addEventListener('keyup', (event) => {
+    if (event.key === 'Enter') {
+      const teamName = searchInput.value;
+      searchTeamStats(teamName);
     }
-  };
+  });
 
-  try {
-    const response = await fetch(url, options);
-    const data = await response.json();
-    console.log(data);
+  // Event Listener 3: Mouseover
+  teamStats.addEventListener('mouseover', () => {
+    teamStats.style.backgroundColor = 'white';
+  });
 
-    if (data.data && data.data.length > 0) {
-      const player = data.data[0];
-      displayPlayerStats(player);
-    } else {
-      playerStats.innerHTML = '<p>No player found.</p>';
+  async function searchTeamStats(teamName) {
+    const apiKey = '4948651216msh7c93eb95da5ba5fp10b6b3jsn2cffd22451d6';
+  
+    const url = `https://api-basketball.p.rapidapi.com/statistics?season=2019-2020&league=12&team=${teamName}`;
+    const options = {
+      method: 'GET',
+      headers: {
+        'X-RapidAPI-Key': apiKey,
+        'X-RapidAPI-Host': 'api-basketball.p.rapidapi.com'
+      }
+    };
+  
+    try {
+      const response = await fetch(url, options);
+      if (response.ok) {
+        const result = await response.json();
+        console.log(result);
+        displayTeamStats(result);
+      } else {
+        console.log("Error with format");
+      }
+    } catch (error) {
+      console.error(error);
+      teamStats.textContent = 'Error retrieving team statistics.';
     }
-  } catch (error) {
-    console.error(error);
   }
-}
 
-// Function to display player stats on the page
-function displayPlayerStats(player) {
-  console.log(player);
-  playerStats.innerHTML = `
-    <h3>Player: ${player.first_name} ${player.last_name}</h3>
-    <p>Team: ${player.team.full_name}</p>
-    <p>Position: ${player.position}</p>
-    <p>Height: ${player.height_feet}'${player.height_inches}</p>
-    <p>Weight: ${player.weight_pounds} lbs</p>
-  `;
-}
+  function displayTeamStats(stats) {
+    // Clear previous team statistics
+    teamStats.innerHTML = '';
+  
+    // Check if the API response contains any errors
+    if (stats.errors) {
+      teamStats.textContent = 'Error retrieving team statistics.';
+      return;
+    }
+  
+    const teamName = stats.response.team.name;
+    const games = stats.response.games;
+    const points = stats.response.points;
+  
+    // Create an unordered list element
+    const list = document.createElement('ul');
+  
+    // Create list items for each statistic
+    const teamNameItem = document.createElement('li');
+    teamNameItem.textContent = `Team: ${teamName}`;
+  
+    const gamesItem = document.createElement('li');
+    gamesItem.textContent = `Games: ${games}`;
+  
+    const pointsItem = document.createElement('li');
+    pointsItem.textContent = `Points: ${points}`;
+  
+    // Append list items to the unordered list
+    list.appendChild(teamNameItem);
+    list.appendChild(gamesItem);
+    list.appendChild(pointsItem);
+  
+    // Append the list to the teamStats div
+    teamStats.appendChild(list);
+  }
+})
