@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchButton = document.getElementById('search-btn');
   const teamStats = document.getElementById('team-stats');
 
+  // Event Listener 1: Button click
   searchButton.addEventListener('click', () => {
     const teamName = searchInput.value;
     searchTeamStats(teamName);
