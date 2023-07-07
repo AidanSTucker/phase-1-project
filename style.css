@@ -40,6 +40,6 @@ button {
 #team-stats {
   border: 1px solid #333;
   padding: 20px;
-  background-color: green; 
+  background-color: rgb(255, 255, 255); 
   color: #333; 
 }
