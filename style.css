@@ -4,7 +4,7 @@ body {
 }
 
 header {
-  background-color: #fcfbff;
+  background-color: #cac6c6;
   color: #0e17be;
   padding: 20px;
   display: flex;
@@ -34,7 +34,7 @@ button {
   border: 1px solid #333;
   padding: 20px;
   background-color: green;
-  color: rgb(76, 155, 74);
+  color: rgb(253, 255, 253);
 }
 
 

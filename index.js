@@ -35,8 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const response = await fetch(url, options);
       if (response.ok) {
         const result = await response.json();
-        console.log(result);
-
         if (result.response.length > 0) {
           const firstResponse = result.response[0];
           displayTeamStats(firstResponse);
