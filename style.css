@@ -4,8 +4,8 @@ body {
 }
 
 header {
-  background-color: #333;
-  color: #fff;
+  background-color: #fffbfb;
+  color: #0e17be;
   padding: 20px;
   display: flex;
   justify-content: space-between;

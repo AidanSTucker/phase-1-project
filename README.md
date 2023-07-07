@@ -16,3 +16,9 @@ If there is an error with the API request or the response format, error messages
 
 CSS Styling
 The CSS code provides basic styling for the web page. It sets the font family, colors, and padding for different elements. The header section has a dark background color with white text and is aligned using flexbox. The search input, button, and "team-stats" div have their own specific styles.
+
+Source Of NBA Logo In Header: 1000LOGOS.net 
+(https://1000logos.net/nba-logo/#:~:text=The%20NBA%20logo%2C%20designed%20by,replace%20him%20with%20Kobe%20Bryant.
+)
+
+Source Of Team Logo: Public API -> API-Basketball (RapidAPI)
