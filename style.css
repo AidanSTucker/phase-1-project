@@ -4,7 +4,7 @@ body {
 }
 
 header {
-  background-color: #fffbfb;
+  background-color: #fcfbff;
   color: #0e17be;
   padding: 20px;
   display: flex;
@@ -37,9 +37,13 @@ button {
   color: rgb(76, 155, 74);
 }
 
-#team-stats {
-  border: 1px solid #333;
-  padding: 20px;
-  background-color: rgb(255, 255, 255); 
-  color: #333; 
+
+h1 {
+  background-color: blue;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  border-radius: 50%;
+  padding: 10px;
+  
 }
