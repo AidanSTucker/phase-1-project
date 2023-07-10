@@ -1,26 +1,26 @@
 document.addEventListener('DOMContentLoaded', () => {
   const searchForm = document.getElementById('search-form');
   const searchInput = document.getElementById('search-input');
-  const teamStats = document.getElementById('team-stats');
+  const teamName = document.getElementById('team-name');
 
   searchForm.addEventListener('submit', (event) => {
     event.preventDefault(); // Prevent form submission
     const teamName = searchInput.value;
-    searchTeamStats(teamName);
+    searchTeamName(teamName);
   });
 
   searchInput.addEventListener('keyup', (event) => {
     if (event.key === 'Enter') {
       const teamName = searchInput.value;
-      searchTeamStats(teamName);
+      searchTeamName(teamName);
     }
   });
 
-  teamStats.addEventListener('mouseover', () => {
-    teamStats.style.backgroundColor = 'green';
+  teamName.addEventListener('mouseover', () => {
+    teamName.style.backgroundColor = 'green';
   });
 
-  async function searchTeamStats(teamName) {
+  async function searchTeamName(teamName) {
     const apiKey = '4948651216msh7c93eb95da5ba5fp10b6b3jsn2cffd22451d6';
 
     const url = `https://api-basketball.p.rapidapi.com/teams?league=12&season=2019-2020&search=${teamName}`;
@@ -38,9 +38,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const result = await response.json();
         if (result.response.length > 0) {
           const teams = result.response;
-          displayTeamStats(teams);
+          displayTeamName(teams);
         } else {
-          teamStats.textContent = 'Team not found.';
+          teamName.textContent = 'Team not found.';
         }
       } else {
         console.log('Error with format');
@@ -50,13 +50,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function displayTeamStats(teams) {
+  function displayTeamName(teams) {
     let htmlContent = '';
     teams.forEach(team => {
       const { country, logo, name } = team;
 
       htmlContent += `
-        <div class="team-stats" data-name="${name}">
+        <div class="team-name" data-name="${name}">
           <h2>${name}</h2>
           <p>Country: ${country.name}</p>
           <img src="${logo}" alt="${name} logo">
@@ -67,14 +67,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const responseContainer = document.getElementById('response-container');
     responseContainer.innerHTML = htmlContent;
 
-    const teamStatsDivs = document.querySelectorAll('.team-stats');
-    teamStatsDivs.forEach(div => {
+    const teamNameDivs = document.querySelectorAll('.team-name');
+    teamNameDivs.forEach(div => {
       div.addEventListener('click', () => {
         const selectedTeamName = div.dataset.name;
         const selectedTeam = teams.find(team => team.name === selectedTeamName);
         if (selectedTeam) {
           const selectedTeamHtml = `
-            <div class="team-stats" data-name="${selectedTeam.name}">
+            <div class="team-name" data-name="${selectedTeam.name}">
               <h2>${selectedTeam.name}</h2>
               <p>Country: ${selectedTeam.country.name}</p>
               <img src="${selectedTeam.logo}" alt="${selectedTeam.name} logo">
