@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
   const searchForm = document.getElementById('search-form');
   const searchInput = document.getElementById('search-input');
@@ -21,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   async function searchTeamName(teamName) {
-    const apiKey = '4948651216msh7c93eb95da5ba5fp10b6b3jsn2cffd22451d6';
+    const apiKey = API_KEY;
 
     const url = `https://api-basketball.p.rapidapi.com/teams?league=12&season=2019-2020&search=${teamName}`;
     const options = {
