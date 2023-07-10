@@ -1,12 +1,10 @@
-
-
-
 document.addEventListener('DOMContentLoaded', () => {
+  const searchForm = document.getElementById('search-form');
   const searchInput = document.getElementById('search-input');
-  const searchButton = document.getElementById('search-btn');
   const teamStats = document.getElementById('team-stats');
 
-  searchButton.addEventListener('click', () => {
+  searchForm.addEventListener('submit', (event) => {
+    event.preventDefault(); // Prevent form submission
     const teamName = searchInput.value;
     searchTeamStats(teamName);
   });
