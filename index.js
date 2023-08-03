@@ -1,5 +1,22 @@
+
 document.addEventListener('DOMContentLoaded', () => {
-  console.log("DOMContentLoaded");
+  
+  searchForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const teamName = searchInput.value;
+    searchTeamName(teamName);
+  });
+
+  searchInput.addEventListener('keyup', (event) => {
+    if (event.key === 'Enter') {
+      const teamName = searchInput.value;
+      searchTeamName(teamName);
+    }
+  });
+
+  teamName.addEventListener('mouseover', () => {
+    teamName.style.backgroundColor = 'green';
+  });
 });
 
 const searchForm = document.getElementById('search-form');
@@ -7,22 +24,7 @@ const searchInput = document.getElementById('search-input');
 const teamName = document.getElementById('team-name');
 const responseContainer = document.getElementById('response-container');
 
-searchForm.addEventListener('submit', (event) => {
-  event.preventDefault();
-  const teamName = searchInput.value;
-  searchTeamName(teamName);
-});
 
-searchInput.addEventListener('keyup', (event) => {
-  if (event.key === 'Enter') {
-    const teamName = searchInput.value;
-    searchTeamName(teamName);
-  }
-});
-
-teamName.addEventListener('mouseover', () => {
-  teamName.style.backgroundColor = 'green';
-});
 
 async function searchTeamName(teamName) {
   const apiKey = API_KEY;
